@@ -1,0 +1,76 @@
+
+ESMX:
+  App:
+    globalResourceControl:  true
+    logKindFlag:            ESMF_LOGKIND_Multi
+    logAppendFlag:          true
+    logFlush:               true
+    startTime: 2017-10-01T00:00:00
+    stopTime:  2017-10-02T00:00:00
+
+  Driver:
+    componentList: [HYD, GWR]
+    attributes:
+      Verbosity: high
+      Profiling: 0
+      cpl_list: CPL_LIST_NNE
+    runSequence: |
+      @3600
+         HYD
+         GWR
+      @
+        # HYD
+        # HYD -> GWR :remapmethod=bilinear:srcMaskValues=0:dstMaskValues=0
+        # GWR
+
+HYD:
+  model: WRFHYDRO
+  petList: [0]
+  attributes:
+    # Verbosity: "high"
+    Diagnostic: "max"
+    Profiling: "0"
+    # realize_all_export: false
+    config_file: "hydro.namelist"
+    das_config_file: "namelist.hrldas"
+    time_step: "0"
+    forcings_directory: "none"
+    domain_id: "1"
+    # nest_to_nest: false
+    # import_dependency: false
+    # write_restart: false
+    # read_restart: false
+    # input_directory: "./HYD_CAP_INPUT"
+    # output_directory: "./HYD_CAP_OUTPUT"
+
+GWR:
+  model: ParFlow
+  petList: [0]
+  attribute:
+    Verbosity: 1
+    Diagnostic: max
+    realize_all_import: false
+    realize_all_export: false
+    filename: LW
+    initialize_import: FLD_INIT_ZERO
+    initialize_export: FLD_INIT_ZERO
+    number_of_soil_layers: 4
+    thickness_of_soil_layers: 0.1,0.3,0.6,1.0
+    check_import: FLD_CHECK_NEXTT
+    coord_type: GRD_COORD_CLMVEGTF
+    coord_filename: drv_vegm.alluv.dat
+    output_directory: "./GWR_CAP_OUTPUT"
+
+# ----- OLD NASA CODE ----
+# optionally turn off a component (options are "yes" and "no")
+# lnd: no
+# hyd: yes
+# gwr: yes
+# med: no
+
+# hyd_model: wrfhydro
+# gwr_model: parflow
+
+# PET lists - if not set, use all PETs
+# pets_hyd: 0 3
+# pets_gwr: 0 3
