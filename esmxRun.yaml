@@ -3,20 +3,21 @@ ESMX:
   App:
     globalResourceControl:  true
     logKindFlag:            ESMF_LOGKIND_Multi
-    logAppendFlag:          true
+    logAppendFlag:          false
     logFlush:               true
-    startTime: 2017-10-01T00:00:00
-    stopTime:  2017-10-02T00:00:00
+    startTime:              2017-10-01T00:00:00
+    stopTime:               2017-10-02T00:00:00
 
   Driver:
     componentList: [HYD, GWR]
     attributes:
       Verbosity: high
-      Profiling: 0
-      cpl_list: CPL_LIST_NNE
+      # Profiling: 0
+      # cpl_list: CPL_LIST_NNE
     runSequence: |
       @3600
          HYD
+         HYD -> GWR
          GWR
       @
         # HYD
@@ -36,10 +37,10 @@ HYD:
     time_step: "0"
     forcings_directory: "none"
     domain_id: "1"
-    # nest_to_nest: false
-    # import_dependency: false
-    # write_restart: false
-    # read_restart: false
+    nest_to_nest: "false"
+    import_dependency: "false"
+    write_restart: "false"
+    read_restart: "false"
     # input_directory: "./HYD_CAP_INPUT"
     # output_directory: "./HYD_CAP_OUTPUT"
 
@@ -60,6 +61,16 @@ GWR:
     coord_type: GRD_COORD_CLMVEGTF
     coord_filename: drv_vegm.alluv.dat
     output_directory: "./GWR_CAP_OUTPUT"
+  output:
+    write_final: true
+  geom:
+    nz: 4
+    minx: -73.916667
+    miny:  41.350000
+    maxx: -73.616667
+    maxy:  41.566667
+  importFields:
+    total_water_flux: {dim: 3, min: -1, max: 1}
 
 # ----- OLD NASA CODE ----
 # optionally turn off a component (options are "yes" and "no")
