@@ -1,0 +1,58 @@
+###############################################
+####  WRFHYDRO <-> ParFlow Configuration  #####
+###############################################
+
+ESMX:
+  App:
+    globalResourceControl:  true
+    logKindFlag:            ESMF_LOGKIND_Multi
+    logAppendFlag:          false
+    logFlush:               true
+    fieldDictionary:        ./fd.yaml
+    startTime:              @[STARTTIME]
+    stopTime:               @[STOPTIME]
+
+  Driver:
+    componentList: [HYD, GWR]
+    attributes:
+      Verbosity: "high"
+    runSequence: |
+      @@[CPLTIMESTEP]
+         HYD
+         HYD -> GWR
+         GWR
+      @
+
+HYD:
+  model: WRFHYDRO
+  petList: @[HYD.PETLIST]
+  attributes:
+    config_file: "hydro.namelist"
+    das_config_file: "namelist.hrldas"
+    time_step: "0"
+    forcings_directory: "none"
+    domain_id: "1"
+    nest_to_nest: "false"
+    import_dependency: "false"
+    write_restart: "false"
+    read_restart: "false"
+
+GWR:
+  model: ParFlow
+  petList: @[GWR.PETLIST]
+  attributes:
+    Verbosity: "high"
+    Diagnostic: "0"
+    Profiling: "0"
+    realize_all_import: false
+    realize_all_export: false
+    prep_filename: @[GWR.PREPFILE]
+    filename: @[GWR.FILENAME]
+    initialize_import: FLD_INIT_FILLV
+    initialize_export: FLD_INIT_MODEL
+    number_of_soil_layers: 4
+    thickness_of_soil_layers: 0.1,0.3,0.6,1.0
+    check_import: FLD_CHECK_NEXTT
+    coord_type: GRD_COORD_CLMVEGTF
+    coord_filename: drv_vegm.alluv.dat
+    output_directory: "./GWR_CAP_OUTPUT"

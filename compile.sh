@@ -137,4 +137,4 @@ if [ ! -z "${BUILD_JOBS}" ]; then
   BUILD_SETTINGS+=("--build-jobs=${BUILD_JOBS}")
 fi
 
-ESMX_Builder ${BUILD_SETTINGS[@]} esmxBuild.yaml
+ESMX_Builder ${BUILD_SETTINGS[@]} appcfg/wrfhydro_parflow.yaml

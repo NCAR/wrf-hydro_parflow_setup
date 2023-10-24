@@ -1,0 +1,35 @@
+common:
+  vars:
+  - [JOBNAME, "wrfhydro-parflow-lw"]
+  - [TASKS, 1]
+  - [WALLTIME, "00:10:00"]
+  - [STARTTIME, "2019-06-01T00:00:00"]
+  - [STOPTIME, "2019-06-02T00:00:00"]
+  - [CPLTIMESTEP, "3600"]
+  - [HYD.PETLIST, "[0]"]
+  - [GWR.PETLIST, "[0]"]
+  - [GWR.PREPFILE, "Little_Washita.py"]
+  - [GWR.FILENAME, "LW.pfidb"]
+  data:
+  - [copy, "install/bin/esmx_app"]
+  - [copy, "data/little_washita/wrfhydro/"]
+  - [copy, "data/little_washita/parflow/"]
+  - [copy, "data/field_dictionary/fd.yaml", "fd.yaml"]
+  templates:
+  - ["templates/esmx_run/wrfhydro-parflow-1way.yaml", "esmxRun.yaml"]
+
+system:
+  derecho:
+    vars:
+    - [TASKSPERNODE, 64]
+    data:
+    - [symlink, /glade/derecho/scratch/drosen/data/little_washita/WRFHYDRO_LDASIN, WRFHYDRO_FORCING]
+    templates:
+    - ["templates/scheduler/pbs_template.sh", "run.sh"]
+  cheyenne:
+    vars:
+    - [TASKSPERNODE, 36]
+    data:
+    - [symlink, /glade/derecho/scratch/drosen/data/little_washita/WRFHYDRO_LDASIN, WRFHYDRO_FORCING]
+    templates:
+    - ["templates/scheduler/pbs_template.sh", "run.sh"]

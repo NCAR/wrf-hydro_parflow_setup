@@ -1,0 +1,80 @@
+#################################################
+####  ESMX_Data <-> WRFHYDRO Configuration  #####
+#################################################
+
+ESMX:
+  App:
+    globalResourceControl:  true
+    logKindFlag:            ESMF_LOGKIND_Multi
+    logAppendFlag:          false
+    logFlush:               true
+    fieldDictionary:        ./fd.yaml
+    startTime:              @[STARTIME]
+    stopTime:               @[STOPTIME]
+
+  Driver:
+    componentList:          [LND, HYD]
+    attributes:
+      Verbosity: "low"
+    runSequence: |
+      @@[CPLTIMESTEP]
+        LND
+        LND -> HYD
+        HYD
+        HYD -> LND
+      @
+
+HYD:
+  model: WRFHYDRO
+  petList: @[HYD.PETLIST]
+  attributes:
+    realize_all_export: 'false'
+    config_file: 'hydro.namelist'
+    das_config_file: 'namelist.hrldas'
+    time_step: '0'
+    forcings_directory: 'NONE'
+    domain_id: '1'
+    nest_to_nest: 'false'
+    import_dependency: 'false'
+    write_restart: 'false'
+    read_restart: 'false'
+    input_directory: 'HYD_INPUT'
+    output_directory: 'HYD_OUTPUT'
+
+LND:
+  model: ESMX_Data
+  petList: @[LND.PETLIST]
+  attributes:
+    Verbosity: "high"
+  output:
+    write_final: true
+  geom:
+    minx: -73.916667
+    miny:  41.350000
+    maxx: -73.616667
+    maxy:  41.566667
+  importFields:
+    soil_moisture_fraction_layer_1:           {dim: 2, min: 0, max: 1}
+    soil_moisture_fraction_layer_2:           {dim: 2, min: 0, max: 1}
+    soil_moisture_fraction_layer_3:           {dim: 2, min: 0, max: 1}
+    soil_moisture_fraction_layer_4:           {dim: 2, min: 0, max: 1}
+    liquid_fraction_of_soil_moisture_layer_1: {dim: 2, min: 0, max: 1}
+    liquid_fraction_of_soil_moisture_layer_2: {dim: 2, min: 0, max: 1}
+    liquid_fraction_of_soil_moisture_layer_3: {dim: 2, min: 0, max: 1}
+    liquid_fraction_of_soil_moisture_layer_4: {dim: 2, min: 0, max: 1}
+    surface_water_depth:                      {dim: 2, min: 0, max: 1}
+  exportFields:
+    soil_moisture_fraction_layer_1:           {dim: 2, val: 0.2}
+    soil_moisture_fraction_layer_2:           {dim: 2, val: 0.2}
+    soil_moisture_fraction_layer_3:           {dim: 2, val: 0.2}
+    soil_moisture_fraction_layer_4:           {dim: 2, val: 0.2}
+    liquid_fraction_of_soil_moisture_layer_1: {dim: 2, val: 0.2}
+    liquid_fraction_of_soil_moisture_layer_2: {dim: 2, val: 0.2}
+    liquid_fraction_of_soil_moisture_layer_3: {dim: 2, val: 0.2}
+    liquid_fraction_of_soil_moisture_layer_4: {dim: 2, val: 0.2}
+    soil_temperature_layer_1:                 {dim: 2, val: 288}
+    soil_temperature_layer_2:                 {dim: 2, val: 288}
+    soil_temperature_layer_3:                 {dim: 2, val: 288}
+    soil_temperature_layer_4:                 {dim: 2, val: 288}
+    time_step_infiltration_excess:            {dim: 2, val: 0}
+    soil_column_drainage:                     {dim: 2, val: 0}
