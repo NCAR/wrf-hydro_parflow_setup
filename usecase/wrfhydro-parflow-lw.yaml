@@ -10,7 +10,7 @@ common:
   - [GWR.PETLIST, "[0]"]
   - [GWR.PREPFILE, "Little_Washita.py"]
   - [GWR.FILENAME, "LW.pfidb"]
-  data:
+  files:
   - [copy, "install/bin/esmx_app"]
   - [copy, "data/little_washita/wrfhydro/"]
   - [copy, "data/little_washita/parflow/"]
@@ -22,14 +22,14 @@ system:
   derecho:
     vars:
     - [TASKSPERNODE, 64]
-    data:
+    files:
     - [symlink, /glade/derecho/scratch/drosen/data/little_washita/WRFHYDRO_LDASIN, WRFHYDRO_FORCING]
     templates:
     - ["templates/scheduler/pbs_template.sh", "run.sh"]
   cheyenne:
     vars:
     - [TASKSPERNODE, 36]
-    data:
+    files:
     - [symlink, /glade/derecho/scratch/drosen/data/little_washita/WRFHYDRO_LDASIN, WRFHYDRO_FORCING]
     templates:
     - ["templates/scheduler/pbs_template.sh", "run.sh"]

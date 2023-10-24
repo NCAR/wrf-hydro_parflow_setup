@@ -73,7 +73,7 @@ class RunSetup:
                 sys.exit('ERROR - file not found: '+data[1])
         else:
             warnings.warn("option unknown in use case: "+data[0], Warning)
-    def __setup_data(self, data: tuple):
+    def __setup_files(self, data: tuple):
         if isinstance(data[0], str):
             self.__input_item(data)
         elif isinstance(data[0], list):
@@ -103,8 +103,8 @@ class RunSetup:
                     self.templates.append(os.path.basename(item[1]))
     def __setup(self, section: dict):
         for key in section:
-            if key == "data":
-                self.__setup_data(section[key])
+            if key == "files":
+                self.__setup_files(section[key])
             elif key == "vars":
                 self.__setup_vars(section[key])
             elif key == "templates":
