@@ -70,7 +70,7 @@ fi
 # auto environment
 if [ "${ENV_AUTO}" = true ] ; then
   case ${SYSTEM} in
-    cheyenne) AUTOFILE="${ENV_DIR}/cheyenne/gnu-10.1.0";;
+    cheyenne) AUTOFILE="${ENV_DIR}/cheyenne/intel-19.1.1";;
     derecho) AUTOFILE="${ENV_DIR}/derecho/gnu-12.2.0";;
     *) printf "ERROR: unspecified --env-auto for ${SYSTEM}\n"; exit 1 ;;
   esac

@@ -8,12 +8,15 @@ Build environments for Cheyenne and Derecho are preconfigured and loaded using
 $ ./compile.sh --env-auto
 ```
 
+## Account
+Set environment variable ACCOUNT to desired batch system account.
+
 ## Use Case Instructions
 Preconfigured use cases are available in `usecase` directory. `RUN_DIRECTORY`
 defaults to run/USE_CASE_NAME but can be manually configured using
 `setuprun.sh`. For more information use `setuprun.sh -h`.
 ```
-$ ./setuprun.sh PATH_TO_USE_CASE_CONFIG
+$ ./setuprun.sh --env-auto PATH_TO_USE_CASE_CONFIG
 $ cd RUN_DIRECTORY
 $ BATCH_SUBMIT run.sh
 ```

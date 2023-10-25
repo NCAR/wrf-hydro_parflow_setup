@@ -21,12 +21,20 @@ class RunSetup:
             help='use case directory')
         parser.add_argument('sysname', type=str, default=None,
             help='system name')
+        parser.add_argument('--account', type=str, default=None,
+            help='batch system account')
         parser.add_argument('--rundir', type=pathlib.Path, default=None,
             help='run directory')
         self.args = parser.parse_args()
         self.ucname = os.path.splitext(os.path.basename(self.args.usecase))[0]
         if self.args.rundir is None:
             setattr(self.args, 'rundir', os.path.join('run', self.ucname))
+        if self.args.account is None:
+            if 'ACCOUNT' in os.environ:
+                setattr(self.args, 'account', os.getenv("ACCOUNT"))
+            else:
+                warnings.warn("ACCOUNT is not set in environment", Warning)
+                setattr(self.args, 'account', "UNKNOWN")
         with open(self.args.usecase) as file:
             self.uc = yaml.safe_load(file)
             if self.uc is None:
@@ -38,6 +46,7 @@ class RunSetup:
         self.__make_rundir()
         self.__common()
         self.__system()
+        self.cfg['ACCOUNT'] = self.args.account
         self.__templates()
     def __make_rundir(self):
         os.makedirs(self.args.rundir, exist_ok=False)
@@ -125,7 +134,7 @@ class RunSetup:
         for item in self.templates:
             with open(os.path.join(self.args.rundir, item), 'r') as file:
                 filedata = file.read()
-            relist = re.findall(r'@\[.*\]', filedata)
+            relist = re.findall(r'@\[.*?\]', filedata)
             for opt in relist:
                 if opt[2:-1] in self.cfg:
                     filedata = filedata.replace(opt, str(self.cfg[opt[2:-1]]))

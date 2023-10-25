@@ -5,19 +5,10 @@
 #PBS -q @[QUEUE]
 #PBS -j oe
 #PBS -o output.log
-#PBS -l select=1:mpiprocs=1
-
-#SBATCH --job-name=@[JOBNAME]
-#SBATCH --ntasks=@[TASKS]
-#SBATCH --time=@[WALLTIME]
-#SBATCH --partition=@[PARTITION]
-#SBATCH --account=@[ACCOUNT]
-#SBATCH --constraint=@[CONSTRAINT]
-#SBATCH --qos=@[QOS]
-#SBATCH --output=@[LOG]
+#PBS -l select=@[NODES]:mpiprocs=@[TASKSPERNODE]
 
 # environment settings
-#   TODO
+source @[BASH.ENV]
 
 # set umask
 umask 022
@@ -34,7 +25,7 @@ s_tm=`date +%s`
 s_hr=`date +%H`; s_mn=`date +%M`; s_sc=`date +%S`
 echo "Model Start    ${s_hr}:${s_mn}:${s_sc}"
 
-mpiexec_mpt -n 1 ./esmx_app
+@[MPIEXEC] @[TASKS] ./esmx_app
 exec_s=$?
 
 e_tm=`date +%s`

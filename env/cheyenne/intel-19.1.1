@@ -17,8 +17,14 @@ module load cmake/3.22.0
 
 module list
 
-export NETCDF_ROOT=$NETCDF
-export CC=mpicc
-export CXX=mpicxx
-export FC=mpif90
-export F90=mpif90
+export HYPRE_ROOT="/glade/p/ral/hap/drosen/projects/LISHydro/lib/hypre/2.9.0b_intel-19.1.1"
+export SILO_ROOT="/glade/p/ral/hap/drosen/projects/LISHydro/lib/silo/4.10.2_intel-19.1.1"
+export NETCDF_ROOT="${NETCDF}"
+
+export LD_LIBRARY_PATH="/glade/p/ral/hap/drosen/projects/LISHydro/lib/hypre/2.9.0b_intel-19.1.1/lib:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="/glade/p/ral/hap/drosen/projects/LISHydro/lib/silo/4.10.2_intel-19.1.1/lib:${LD_LIBRARY_PATH}"
+
+export CC="mpicc"
+export CXX="mpicxx"
+export FC="mpif90"
+export F90="mpif90"

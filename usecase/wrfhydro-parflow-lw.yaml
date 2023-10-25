@@ -21,15 +21,22 @@ common:
 system:
   derecho:
     vars:
+    - [NODES, 1]
     - [TASKSPERNODE, 64]
+    - [MPIEXEC, "mpiexec_mpt -n"]
+    - [QUEUE, "main"]
     files:
     - [symlink, /glade/derecho/scratch/drosen/data/little_washita/WRFHYDRO_LDASIN, WRFHYDRO_FORCING]
     templates:
     - ["templates/scheduler/pbs_template.sh", "run.sh"]
   cheyenne:
     vars:
+    - [BASH.ENV, "../../env/cheyenne/intel-19.1.1"]
+    - [NODES, 1]
     - [TASKSPERNODE, 36]
+    - [MPIEXEC, "mpiexec_mpt -n"]
+    - [QUEUE, "regular"]
     files:
-    - [symlink, /glade/derecho/scratch/drosen/data/little_washita/WRFHYDRO_LDASIN, WRFHYDRO_FORCING]
+    - [symlink, /glade/scratch/wangjingad/WRFHYDRO_PARFLOW/Subsetting/PF_domain/Forcing, WRFHYDRO_FORCING]
     templates:
     - ["templates/scheduler/pbs_template.sh", "run.sh"]
