@@ -103,17 +103,8 @@ settings
 
 # auto environment
 if [ "${ENV_AUTO}" = true ] ; then
-  case ${SYSTEM} in
-    cheyenne) AUTOFILE="${ENV_DIR}/cheyenne/intel-19.1.1";;
-    derecho) AUTOFILE="${ENV_DIR}/derecho/gnu-12.2.0";;
-    *) printf "ERROR: unspecified --env-auto for ${SYSTEM}\n"; exit 1 ;;
-  esac
-  if [ -f "${AUTOFILE}" ]; then
-    source ${AUTOFILE}
-  else
-    printf "ERROR: ${AUTOFILE} does not exist\n"
-    exit 1
-  fi
+  source tools/setupenv.sh
+  auto_environment ${SYSTEM} ${ENV_DIR}
 fi
 
 set -u

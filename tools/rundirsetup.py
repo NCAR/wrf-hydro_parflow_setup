@@ -112,7 +112,9 @@ class RunSetup:
                     self.templates.append(os.path.basename(item[1]))
     def __setup(self, section: dict):
         for key in section:
-            if key == "files":
+            if section[key] is None:
+                pass
+            elif key == "files":
                 self.__setup_files(section[key])
             elif key == "vars":
                 self.__setup_vars(section[key])
