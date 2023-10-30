@@ -21,9 +21,10 @@ common:
 system:
   derecho:
     vars:
+    - [BASH.ENV, "../../env/derecho/gnu-12.2.0"]
     - [NODES, 1]
     - [TASKSPERNODE, 64]
-    - [MPIEXEC, "mpiexec_mpt -n"]
+    - [MPIEXEC, "mpiexec -n"]
     - [QUEUE, "main"]
     files:
     - [symlink, /glade/derecho/scratch/drosen/data/little_washita/WRFHYDRO_LDASIN, WRFHYDRO_FORCING]

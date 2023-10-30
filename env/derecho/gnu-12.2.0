@@ -1,20 +1,18 @@
-module --force purge
-module load ncarenv/23.06
+#!/bin/bash
+module use /glade/work/soren/derecho/local/lmod
+module load wrfhydro-parflow
 module load conda
-conda activate npl-2022b
-module load craype/2.7.20
-module load gcc/12.2.0
-module load ncarcompilers/1.0.0
-module load cray-libsci/23.02.1.1
-module load cray-mpich/8.1.25
-module load netcdf-mpi/4.9.2
-module load parallel-netcdf/1.12.3
-module load esmf/8.5.0
-module load cmake/3.26.3
+conda activate /glade/campaign/ral/hap/common/parflow/pftools-chey
 
 module list
 
-export NETCDF_ROOT=$NETCDF
+#export HYPRE_ROOT="/glade/work/soren/derecho/local/hypre/2.29.0"
+#export SILO_ROOT="/glade/work/soren/derecho/local/silo/4.10.2"
+export NETCDF_ROOT="${NETCDF}"
+
+export LD_LIBRARY_PATH="${HYPRE_ROOT}/lib:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="${SILO_ROOT}/lib:${LD_LIBRARY_PATH}"
+
 export CC=mpicc
 export CXX=mpicxx
 export FC=mpif90
