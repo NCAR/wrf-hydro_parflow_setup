@@ -10,6 +10,7 @@ common:
   - [GWR.PETLIST, "[0]"]
   - [GWR.PREPFILE, "Little_Washita.py"]
   - [GWR.FILENAME, "LW.pfidb"]
+  - [HYD2GWR.OPTIONS, ":remapmethod=bilinear:srcMaskValues=0:dstMaskValues=0"]
   files:
   - [copy, "install/bin/esmx_app"]
   - [copy, "data/little_washita/wrfhydro/"]

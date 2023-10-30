@@ -19,7 +19,7 @@ ESMX:
     runSequence: |
       @@[CPLTIMESTEP]
          HYD
-         HYD -> GWR
+         HYD -> GWR @[HYD2GWR.OPTIONS]
          GWR
       @
 
