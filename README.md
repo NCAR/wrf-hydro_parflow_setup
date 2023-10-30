@@ -1,22 +1,22 @@
 # WRF-Hydro and Parflow Coupling on Derecho
 Instructions and files for building and running coupled WRF-Hydro and PARFLOW using NUOPC
 
-## Prerequisites: setup using module files
-Add the following `module use` statement to a `.bashrc` file to use `module load wrfhydro-parflow`
+## Build Instructions
+Build environments for Cheyenne and Derecho are preconfigured and loaded using
+`--env-auto`. For more information use `./compile.sh -h`
 ```
-$ module use /glade/work/soren/derecho/local/lmod
+$ ./compile.sh --env-auto
 ```
-Then load modules and set environment variables on Derecho.
-```
-$ module load wrfhydro-parflow
-$ conda activate conda-yaml
-```
-NOTE: using `conda activate npl` will cause this build to fail because it adds extra NetCDF files that cause issues later on. A user will need to use `conda` or `pip` to obtain the Python package `PyYAML`.
 
+## Account
+Set environment variable ACCOUNT to desired batch system account.
 
-## Derecho Build Instructions
+## Use Case Instructions
+Preconfigured use cases are available in `usecase` directory. `RUN_DIRECTORY`
+defaults to run/USE_CASE_NAME but can be manually configured using
+`setuprun.sh`. For more information use `setuprun.sh -h`.
 ```
-$ make
-or
-$ ESMX_Builder -g esmxBuild.yaml -v --build-jobs=4
+$ ./setuprun.sh --env-auto PATH_TO_USE_CASE_CONFIG
+$ cd RUN_DIRECTORY
+$ BATCH_SUBMIT run.sh
 ```

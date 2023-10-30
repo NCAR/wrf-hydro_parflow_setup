@@ -1,0 +1,8 @@
+#!/bin/bash
+site_no=PF
+west_east="x,2170,2258"
+south_north="y,1323,1400"
+in_path='/glade/p/cisl/nwc/nwm_forcings/AORC_v1.1/'
+out_path='/glade/scratch/wangjingad/WRFHYDRO_PARFLOW/Subsetting/PF_domain/Forcing/'
+year_start=2018
+year_end=2020

@@ -1,0 +1,20 @@
+components:
+  parflow:
+    git_repository: git@github.com:esmf-org/parflow.git
+    git_tag: feature/NUOPC
+    source_dir: components/parflow
+    fort_module: parflow_nuopc.mod
+    libraries: parflow_nuopc pfsimulator amps pfkinsol cjson pfclm
+    link_paths: $ENV{HYPRE_ROOT} $ENV{SILO_ROOT}
+    link_libraries: HYPRE silo
+    build_args: -DPARFLOW_ENABLE_NUOPC=ON -DPARFLOW_AMPS_LAYER=mpi1 -DPARFLOW_HAVE_CLM=ON -DPARFLOW_ENABLE_HYPRE=ON -DPARFLOW_ENABLE_SILO=ON -DPARFLOW_ENABLE_NETCDF=ON
+
+  wrfhydro:
+    git_repository: git@github.com:scrasmussen/wrf_hydro_nwm_public.git
+    git_tag: enhancement/nuopc-cap-rebase-esmf
+    source_dir: components/wrfhydro
+    include_dir: WRFHYDRO/mods wrfhydro/mods
+    fort_module: wrfhydro_nuopc.mod
+    link_paths:
+    libraries: wrfhydro_nuopc hydro_driver hydro_orchestrator hydro_routing hydro_utils hydro_mpp hydro_debug_utils hydro_routing_overland hydro_routing_subsurface hydro_data_rec hydro_routing_reservoirs_levelpool hydro_routing_reservoirs_hybrid hydro_routing_reservoirs_rfc hydro_routing_reservoirs hydro_netcdf_layer noahmp_hrldas hydro_noahmp_cpl noahmp_util noahmp_phys noahmp_data snowcro crocus_surfex
+    build_args: -DWRF_HYDRO=1 -DWRF_HYDRO_NUOPC=1 -DWRF_HYDRO_NUOPC_LSM=1 -DHYDRO_D=1 -DNOAHMP=1
