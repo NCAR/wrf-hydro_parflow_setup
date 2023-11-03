@@ -16,7 +16,7 @@ import shutil
 # User-defined local variables
 #-----------------------------------------------------------------------------------------
 
-run_name               = 'LW'
+run_name               = '@[GWR.PREFIX]'
 
 script_path            = get_absolute_path('.') + '/'
 ### current folder for py script
@@ -25,14 +25,14 @@ forcing_path           = './PARFLOW_FORCINGS/'
 clm_output_path        = './'
 pf_output_path         = './'
 
-domain_file            = 'LW.pfsol'
-subsurface_file        = 'Indicator_LW_USGS_Bedrock.pfb'
-slope_x_file           = 'slopex_LW.pfb'
-slope_y_file           = 'slopey_LW.pfb'
+domain_file            = '@[GWR.PREFIX].pfsol'
+subsurface_file        = 'Indicator_@[GWR.PREFIX]_USGS_Bedrock.pfb'
+slope_x_file           = 'slopex_@[GWR.PREFIX].pfb'
+slope_y_file           = 'slopey_@[GWR.PREFIX].pfb'
 initial_file           = 'press.init.233.pfb'
 
 start_time             = 0
-stop_time              = 192
+stop_time              = @[GWR.STOP_TIME]
 # istep                = start_time
 clmstep                = round(start_time) + 1
 

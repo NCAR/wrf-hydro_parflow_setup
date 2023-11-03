@@ -7,9 +7,17 @@ common:
   - [STOPTIME, "2019-06-02T00:00:00"]
   - [CPLTIMESTEP, "3600"]
   - [HYD.PETLIST, "[0]"]
+  - [HYD.START_YEAR, "2019"]
+  - [HYD.START_MONTH, "06"]
+  - [HYD.START_DAY, "01"]
+  - [HYD.START_HOUR, "00"]
+  - [HYD.START_MIN, "00"]
+  - [HYD.OPTRUN, "0"]
   - [GWR.PETLIST, "[0]"]
+  - [GWR.PREFIX, "LW"]
   - [GWR.PREPFILE, "Little_Washita.py"]
   - [GWR.FILENAME, "LW.pfidb"]
+  - [GWR.STOP_TIME, "192"]
   - [HYD2GWR.OPTIONS, ":remapmethod=bilinear:srcMaskValues=0:dstMaskValues=0:zeroRegion=total"]
   - [GWR2HYD.OPTIONS, ":remapmethod=bilinear:srcMaskValues=0:dstMaskValues=0:zeroRegion=select"]
   files:
@@ -18,6 +26,9 @@ common:
   - [copy, "data/little_washita/parflow/"]
   - [copy, "data/field_dictionary/fd.yaml", "fd.yaml"]
   templates:
+  - ["templates/parflow/parflow_template.py", "Little_Washita.py"]
+  - ["templates/wrfhydro/hydro.namelist", "hydro.namelist"]
+  - ["templates/wrfhydro/namelist.hrldas", "namelist.hrldas"]
   - ["templates/esmx_run/wrfhydro-parflow-2way.yaml", "esmxRun.yaml"]
 
 system:

@@ -5,11 +5,11 @@ INDIR = "./WRFHYDRO_FORCING"
 SPATIAL_FILENAME = "./WRFHYDRO_DOMAIN/soil_properties.nc"
 OUTDIR = "./"
 
-START_YEAR  = 2019
-START_MONTH = 06
-START_DAY   = 01
-START_HOUR  = 00
-START_MIN   = 00
+START_YEAR  = @[HYD.START_YEAR]
+START_MONTH = @[HYD.START_MONTH]
+START_DAY   = @[HYD.START_DAY]
+START_HOUR  = @[HYD.START_HOUR]
+START_MIN   = @[HYD.START_MIN]
 
 ! Specification of the land surface model restart file
 ! Comment out the option if not initializing from a restart file
@@ -24,7 +24,7 @@ KHOUR = 8784
 DYNAMIC_VEG_OPTION                = 4
 CANOPY_STOMATAL_RESISTANCE_OPTION = 1
 BTR_OPTION                        = 1
-RUNOFF_OPTION                     = 7
+RUNOFF_OPTION                     = @[HYD.OPTRUN]
 SURFACE_DRAG_OPTION               = 1
 FROZEN_SOIL_OPTION                = 1
 SUPERCOOLED_WATER_OPTION          = 1
