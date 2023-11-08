@@ -1,7 +1,7 @@
 components:
   parflow:
     git_repository: git@github.com:esmf-org/parflow.git
-    git_tag: feature/NUOPC
+    git_tag: feature/NUOPC_PR
     source_dir: components/parflow
     fort_module: parflow_nuopc.mod
     libraries: parflow_nuopc pfsimulator amps pfkinsol cjson pfclm
@@ -10,8 +10,8 @@ components:
     build_args: -DPARFLOW_ENABLE_NUOPC=ON -DPARFLOW_AMPS_LAYER=mpi1 -DPARFLOW_HAVE_CLM=ON -DPARFLOW_ENABLE_HYPRE=ON -DPARFLOW_ENABLE_SILO=ON -DPARFLOW_ENABLE_NETCDF=ON
 
   wrfhydro:
-    git_repository: git@github.com:scrasmussen/wrf_hydro_nwm_public.git
-    git_tag: enhancement/nuopc-cap-rebase-esmf
+    git_repository: git@github.com:esmf-org/wrf_hydro_nwm_public.git
+    git_tag: feature/nuopc-gw-coupling
     source_dir: components/wrfhydro
     include_dir: WRFHYDRO/mods wrfhydro/mods
     fort_module: wrfhydro_nuopc.mod
